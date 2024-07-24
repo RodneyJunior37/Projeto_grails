@@ -83,7 +83,7 @@ class ContactDetailsService {
         } else if (params.type && params.type.getClass().isArray()) {
             Integer index = 0
             params.type.each {
-                saveOrUpdate(getContactDetailsParamsParse(contact,  params, index))
+                saveOrUpdate(getContactDetailsParamsParse(contact, params, index))
                 index++
             }
         }
