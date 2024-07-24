@@ -5,7 +5,6 @@ jQuery(document).ready(function () {
         title: 'Delete Confirmation!',
         content: 'Are you sure want to delete?'
     });
-
     jQuery('.card-body').on('click', '.add-new-number ', function () {
         var _this = jQuery(this);
         OCB.ajax.call({
@@ -22,7 +21,6 @@ jQuery(document).ready(function () {
             }
         });
     });
-
     jQuery('.card-body').on('click', '.remove-number', function () {
         var _this = jQuery(this),
             contactId = _this.attr("data-id");

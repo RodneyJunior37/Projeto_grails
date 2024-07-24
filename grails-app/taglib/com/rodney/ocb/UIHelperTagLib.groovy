@@ -7,7 +7,6 @@ class UIHelperTagLib {
     AuthenticationService authenticationService
     ContactGroupService contactGroupService
 
-
     def renderErrorMessage = { attrs, body ->
         def model = attrs.model
         String fieldName = attrs.fieldName
@@ -24,6 +23,8 @@ class UIHelperTagLib {
         out << g.link(controller: "authentication", action: "logout", class: "dropdown-item"){g.message(code:"logout")}
         out << "</div></li>"
     }
+
+
     def leftNavigation = { attrs, body ->
         List navigations = [
                 [controller: "dashboard", action: "index", name: "dashboard"],
@@ -41,13 +42,25 @@ class UIHelperTagLib {
             out << '</li>'
         }
     }
+
     def contactGroup = { attrs, body ->
         String name = attrs.name ?: "contactGroup"
         out << g.select(class:"form-control", multiple: "multiple", optionValue: "name", optionKey: "id", value: attrs.value, name: name, from: contactGroupService.getGroupList())
     }
 
+    def contactType = { attrs, body ->
+        String name = attrs.name ?: "type"
+        String value = attrs.value ?: ""
+        def select = [:]
+        select.HOME = "Home"
+        select.PERSONAL = "Personal"
+        select.OTHER = "Other"
+        out << g.select(from: select, name: name, optionKey: "key", optionValue: "value", value: value, class:"form-control")
+    }
 
 
-
+    def appBaseURL = { attrs, body ->
+        out << AppUtil.baseURL();
+    }
 
 }

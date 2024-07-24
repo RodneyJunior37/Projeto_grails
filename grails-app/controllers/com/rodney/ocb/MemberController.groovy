@@ -37,7 +37,6 @@ class MemberController {
             redirect(controller: "member", action: "index")
         }
     }
-
     //exibir o formulário de edição de um membro
     def edit(Integer id) {
         if (flash.redirectParams) {

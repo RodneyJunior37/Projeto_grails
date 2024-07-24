@@ -5,12 +5,23 @@
         <g:message code="contact" args="['Details']"/>
     </div>
     <div class="card-body">
+        <%-- código de debug--%>
 
+        <%--
+            if (contact?.contactDetails) {
+                println "Detalhes de Contato:"
+                contact.contactDetails.each { details ->
+                    println "Tipo: ${details.type}, Mobile: ${details.mobile}, Email: ${details.email}"
+                }
+            } else {
+                println "Nenhum detalhe de contato encontrado."
+            }
+        --%>
         <div class="row">
             <div class="col-3">
                 <div class="card" style="width: 18rem;">
                     <g:if test="${contact.image}">
-                        <img src="${resource(dir: "contact-image", file: "/${contact.id}-${contact.image}")}" class="card-img-top"/>
+                        <img src="${resource(dir: 'contact-image', file: '/' + contact.id + '-' + contact.image)}" class="card-img-top"/>
                     </g:if>
                     <g:else>
                         <g:img dir="images" file="grails.svg" class="card-img-top"/>
@@ -49,7 +60,6 @@
                 </g:if>
             </div>
         </div>
-
 
         <div class="form-action-panel" style="margin-top: 8px;">
             <g:link controller="contact" action="index" class="btn btn-primary"><g:message code="cancel"/></g:link>
