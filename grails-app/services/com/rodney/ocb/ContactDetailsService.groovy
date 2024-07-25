@@ -1,4 +1,6 @@
+
 package com.rodney.ocb
+
 
 class ContactDetailsService {
 
@@ -67,7 +69,7 @@ class ContactDetailsService {
 
     private def saveOrUpdate(def map){
         ContactDetails contactDetails
-        if (map && map.id) {
+        if (map.id) {
             contactDetails = getById(map.id) ?: new ContactDetails()
             contactDetails.properties = map
         } else {
@@ -78,12 +80,26 @@ class ContactDetailsService {
 
 
     def createOrUpdateDetails(Contact contact, def params) {
+
+        def existingDetails = getContactDetailsListByContact(contact)// lista de detalhes existentes
+        // lista de ids de detalhes novos, Se não tiver id ele usa uma lista vazia.
+        def newDetailsIds = params.detailsId ? params.detailsId.collect { it as Long } : []
+
+        existingDetails.each { detail ->
+            // compara os ids
+            if (!newDetailsIds.contains(detail.id)) {
+                // Remove se o id não estiver na lista de IDs novos
+                detail.delete(flush: true)
+            }
+        }
+
+        // Adiciona ou atualiza
         if (params.type instanceof String) {
             saveOrUpdate(getContactDetailsParamsParse(contact, params))
         } else if (params.type && params.type.getClass().isArray()) {
             Integer index = 0
             params.type.each {
-                saveOrUpdate(getContactDetailsParamsParse(contact, params, index))
+                saveOrUpdate(getContactDetailsParamsParse(contact,  params, index))
                 index++
             }
         }

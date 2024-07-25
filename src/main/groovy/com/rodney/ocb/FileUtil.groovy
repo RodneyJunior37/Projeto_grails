@@ -28,4 +28,14 @@ class FileUtil {
         }
         return ""
     }
+    public static boolean removeContactImage(Integer contactId, String filename){
+        if (contactId && filename){
+            String contactImagePath = getRootPath() + "contact-image/";
+            File file = new File(contactImagePath, contactId + "-" + filename);
+            if (file.exists()){
+                return file.delete();
+            }
+        }
+        return false;
+    }
 }

@@ -24,4 +24,5 @@ class Contact {
         version(false)
         contactDetails(cascade: 'all-delete-orphan')//garante que ao excluir o contato tamêm sera excluido os todos details
     }
+
 }
